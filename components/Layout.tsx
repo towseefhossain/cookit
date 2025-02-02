@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { AppBar, Toolbar, Typography, Container, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Button, Box, Link as MuiLink } from '@mui/material';
 
 type Props = {
   children?: ReactNode;
@@ -36,6 +36,11 @@ const Layout = ({ children, title = "This is the default title" }: Props) => (
         <hr />
         <Typography variant="body2" color="textSecondary" align="center">
           © {new Date().getFullYear()} My App. All rights reserved.
+        </Typography>
+        <Typography variant="body2" color="textSecondary" align="center">
+          <MuiLink href="https://github.com/towseefhossain/cookit" target="_blank" rel="noopener noreferrer">
+            View on GitHub
+          </MuiLink>
         </Typography>
       </Box>
     </footer>
