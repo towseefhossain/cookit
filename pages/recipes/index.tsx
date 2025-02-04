@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { recipes } from '../../utils/sample-data';
-import { TextField, List, ListItem, ListItemText, Card, CardContent, Typography, Container } from '@mui/material';
+import { TextField, Grid, Card, CardContent, CardMedia, Typography, Container } from '@mui/material';
 
 const RecipesPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const router = useRouter();
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
+    };
+
+    const handleCardClick = (id) => {
+        router.push(`/recipes/${id}`);
     };
 
     const filteredRecipes = recipes.filter((recipe) =>
@@ -16,7 +21,6 @@ const RecipesPage = () => {
     );
 
     return (
-        <Layout title="Recipes | Next.js + TypeScript Example">
             <Container maxWidth="md">
                 <Typography variant="h3" component="h1" gutterBottom>
                     Recipes
@@ -29,21 +33,32 @@ const RecipesPage = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-                <Card>
-                    <CardContent>
-                        <List>
-                            {filteredRecipes.map((recipe) => (
-                                <Link href={`/recipes/${recipe.id}`} passHref>
-                                    <ListItem key={recipe.id} component="a">
-                                        <ListItemText primary={recipe.name} />
-                                    </ListItem>
-                                </Link>
-                            ))}
-                        </List>
-                    </CardContent>
-                </Card>
+                <Grid container spacing={3}>
+                    {filteredRecipes.map((recipe) => (
+                        <Grid item xs={12} sm={6} md={4} key={recipe.id}>
+                            <Card
+                                onClick={() => handleCardClick(recipe.id)}
+                                className="card"
+                            >
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image="https://imgur.com/CUG0Aof.jpeg" // Imgur placeholder image URL
+                                    alt={recipe.name}
+                                />
+                                <CardContent>
+                                    <Typography variant="h6" component="h4">
+                                        {recipe.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {recipe.description}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
             </Container>
-        </Layout>
     );
 };
 

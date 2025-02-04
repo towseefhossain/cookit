@@ -39,7 +39,7 @@ const RecipePage = () => {
 
     return (
         <Layout title={recipe.name}>
-            <Card style={{ maxWidth: 800, margin: '20px auto' }}>
+            <Card className="card" style={{ maxWidth: 800, margin: '20px auto' }}>
                 <CardContent>
                     <Typography variant="h4" component="h1" gutterBottom>
                         {recipe.name}
@@ -70,7 +70,7 @@ const RecipePage = () => {
                         {recipe.steps.map((stepId, index) => {
                             const step = getStepDetails(stepId);
                             return (
-                                <Card key={index} style={{ marginBottom: '10px' }}>
+                                <Card className="card" key={index} style={{ marginBottom: '10px' }}>
                                     <CardContent>
                                         <ListItem>
                                             <ListItemText primary={step.description} />

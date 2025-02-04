@@ -51,7 +51,6 @@ const HorizontalFlow = () => {
   }).filter(edge => edge !== null);
 
   return (
-    <Layout title="Skill Trees | Next.js + TypeScript Example">
       <Container maxWidth="md">
         <Box my={4}>
           <Typography variant="h4" component="h1" gutterBottom>
@@ -81,7 +80,6 @@ const HorizontalFlow = () => {
           </div>
         </Box>
       </Container>
-    </Layout>
   );
 };
 
