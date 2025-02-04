@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Switch from '@mui/material/Switch';
 import { AppBar, Toolbar, Typography, Container, Box, Button } from '@mui/material';
-import Link from 'next/link';
 import Head from 'next/head';
+import { AuthProvider, useAuth } from '../context/authContext';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
     const [darkMode, setDarkMode] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof document !== 'undefined') {
@@ -28,37 +29,82 @@ function MyApp({ Component, pageProps }) {
         },
     });
 
-    const handleToggle = () => {
+    const handleToggleDarkMode = () => {
         setDarkMode(!darkMode);
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Head>
-                <title>CookIt</title>
-                <meta name="description" content="Your ultimate cooking companion" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" style={{ flexGrow: 1 }}>
-                        CookIt
-                    </Typography>
-                    <Button color="inherit" component={Link} href="/">Home</Button>
-                    <Button color="inherit" component={Link} href="/about">About</Button>
-                    <Button color="inherit" component={Link} href="/skilltrees/basic">Skill Trees</Button>
-                    <Button color="inherit" component={Link} href="/recipes">Recipes</Button>
-                    <Switch checked={darkMode} onChange={handleToggle} />
-                </Toolbar>
-            </AppBar>
-            <Container>
-                <Box my={4}>
-                    <Component {...pageProps} />
-                </Box>
-            </Container>
-        </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Head>
+                    <title>CookIt</title>
+                    <meta name="description" content="Your ultimate cooking companion" />
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            CookIt
+                        </Typography>
+                        <Navigation
+                            darkMode={darkMode}
+                            handleToggleDarkMode={handleToggleDarkMode}
+                        />
+                    </Toolbar>
+                </AppBar>
+                <Container>
+                    <Box sx={{ my: 2 }}>
+                        <Component {...pageProps} />
+                    </Box>
+                </Container>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }
+
+const Navigation = ({ darkMode, handleToggleDarkMode }) => {
+    const router = useRouter();
+    const { isLoggedIn, login, logout } = useAuth();
+
+    const handleLoginLogout = () => {
+        if (isLoggedIn) {
+            logout();
+        } else {
+            router.push('/login');
+        }
+    };
+
+    const handleNavigation = (path) => {
+        router.push(path);
+    };
+
+    return (
+        <>
+            <Button color="inherit" onClick={() => handleNavigation('/')}>
+                Home
+            </Button>
+            <Button color="inherit" onClick={() => handleNavigation('/about')}>
+                About
+            </Button>
+            {isLoggedIn && (
+                <>
+                    <Button color="inherit" onClick={() => handleNavigation('/skilltrees/basic')}>
+                        Skilltrees
+                    </Button>
+                    <Button color="inherit" onClick={() => handleNavigation('/recipes')}>
+                        Recipes
+                    </Button>
+                </>
+            )}
+            <Button color="inherit" onClick={handleToggleDarkMode}>
+                {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </Button>
+            <Button color="inherit" onClick={handleLoginLogout}>
+                {isLoggedIn ? 'Logout' : 'Login'}
+            </Button>
+        </>
+    );
+};
 
 export default MyApp;
