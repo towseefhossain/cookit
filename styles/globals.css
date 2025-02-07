@@ -91,3 +91,10 @@ body {
     transform: translateX(-20px);
     transition-delay: 0s;
 }
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-left: 60px; /* Adjust margin for mobile devices */
+    }
+}
