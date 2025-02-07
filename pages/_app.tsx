@@ -15,7 +15,9 @@ function MyApp({ Component, pageProps }: { Component: React.FC; pageProps: any }
                             <title>Cook It 🍳</title>
                         </Head>
                         <Navigation darkMode={darkMode} handleToggleDarkMode={handleToggleDarkMode} />
-                        <Component {...pageProps} />
+                        <div className="main-content">
+                            <Component {...pageProps} />
+                        </div>
                     </>
                 )}
             </ThemeProvider>
