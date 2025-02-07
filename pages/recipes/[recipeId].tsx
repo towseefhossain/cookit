@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { recipes, steps } from '../../utils/sample-data';
-import Layout from '../../components/Layout';
-import { Card, CardContent, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, IconButton, Container } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 const RecipePage = () => {
@@ -38,8 +37,8 @@ const RecipePage = () => {
     }
 
     return (
-        <Layout title={recipe.name}>
-            <Card className="card" style={{ maxWidth: 800, margin: '20px auto' }}>
+        <Container maxWidth="md">
+            <Card style={{ maxWidth: 800, margin: '20px auto' }}>
                 <CardContent>
                     <Typography variant="h4" component="h1" gutterBottom>
                         {recipe.name}
@@ -96,7 +95,7 @@ const RecipePage = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </Layout>
+        </Container>
     );
 };
 

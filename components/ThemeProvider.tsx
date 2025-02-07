@@ -25,16 +25,15 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         palette: {
             mode: darkMode ? 'dark' : 'light',
         },
+        typography: {
+            fontFamily: 'Raleway, Arial, sans-serif',
+        },
     });
-
-    const handleToggleDarkMode = () => {
-        setDarkMode(!darkMode);
-    };
 
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            {children({ darkMode, handleToggleDarkMode })}
+            {children({ darkMode, handleToggleDarkMode: () => setDarkMode(!darkMode) })}
         </MuiThemeProvider>
     );
 };

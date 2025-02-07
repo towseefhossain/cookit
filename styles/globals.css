@@ -1,8 +1,11 @@
+/* Import Raleway font from Google Fonts with medium weight */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .light-mode body {
@@ -41,15 +44,6 @@ body {
     overflow: hidden;
 }
 
-.MuiListItemText-root {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.MuiDrawer-paper:hover .MuiListItemText-root {
-    opacity: 1;
-}
-
 .menu-item {
     height: 5vh;
     /* Adjust the height as needed */
@@ -60,6 +54,8 @@ body {
     cursor: pointer;
     background-color: transparent;
     border: none;
+    font-family: 'Raleway', sans-serif;
+    /* Apply Raleway font */
 }
 
 .menu-item:hover {
@@ -76,15 +72,17 @@ body {
 }
 
 .menu-item-text {
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in-out;
     opacity: 0;
     transform: translateX(-20px);
+    font-family: 'Raleway', sans-serif;
+    /* Apply Raleway font */
 }
 
 .drawer-open .menu-item-text {
     opacity: 1;
-    transform: translateX(10%);
-    transition-delay: 0.2s;
+    transform: translateX(0);
+    transition-delay: 0.3s;
     /* Delay to match the drawer transition */
 }
 
